@@ -1,68 +1,64 @@
 package sg.edu.nus.iss.club;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Club {
 
-	private static final int ARRAY_SIZE_INCREMENT = 10;
+	//private static final int ARRAY_SIZE_INCREMENT = 10;
 
     private int    numMembers = 0;
-    private int    count = 0;
-    private Member members[] = new Member [ARRAY_SIZE_INCREMENT];
-
+    //private int    count = 0;
+    //private Member members[] = new Member [ARRAY_SIZE_INCREMENT];
+    private ArrayList<Member> members = new ArrayList<Member>();
+    
     public Member getMember (int memberNum) {
-        if ((memberNum < 1) || (memberNum > numMembers)) {
-            return null;
+        Iterator<Member> i = members.iterator();
+        while (i.hasNext()) {
+        	Member m = i.next();
+        	if (m.getMemberNumber() == memberNum);
+        		return m;
         }
-        return members[memberNum - 1];
+        return null;
     }
 
-    public Member[] getMembers () {
-        Member[] arr = new Member[count];
-        int j = 0;
-        for (int i = 0; i < numMembers; i++) {
-            if (members[i] != null) {
-                arr[j++] = members[i];
-            }
-        }
-        return arr;
+    public ArrayList<Member> getMembers () {
+        return new ArrayList<Member> (members);
     }
 
     public Member addMember (String surname, String firstName,
                                              String secondName) {
-        ensureArraySize ();
-        numMembers++;
-        Member m = new Member (surname, firstName, secondName,
-                                                   numMembers);
-        members[numMembers - 1] = m;
-        count++;
-        return m;
+    	numMembers++;
+    	Member m = new Member (surname, firstName, secondName, 
+    			numMembers);
+    	members.add(m);
+    	return m;
     }
 
     public void removeMember (int memberNum) {
-        if ((memberNum < 1) || (memberNum > numMembers)) {
-            return;
-        }
-        if (members[memberNum-1] != null) {
-            members[memberNum-1] = null;
-            count--;
-        }
+
+       Member m = getMember(memberNum);
+       if (m !=null) {
+    	   members.remove(m);
+       }
     }
 
     public void showMembers () {
-        Member arr[] = getMembers();
-        for (int i = 0; i < arr.length; i++) {
-            arr[i].show ();
+        Iterator<Member> i = members.iterator();
+        while (i.hasNext()) {
+        	i.next().show();
         }
     }
 
-    public void ensureArraySize () {
-        if (numMembers >= members.length) {
-            Member newMembers[];
-            int newSize = numMembers + ARRAY_SIZE_INCREMENT;
-            newMembers = new Member[newSize];
-            for (int i = 0; i < numMembers; i++) {
-                newMembers[i] = members[i];
-            }
-            members = newMembers;
-        }
-    }
+    //public void ensureArraySize () {
+    //    if (numMembers >= members.length) {
+    //        Member newMembers[];
+    //        int newSize = numMembers + ARRAY_SIZE_INCREMENT;
+    //        newMembers = new Member[newSize];
+    //        for (int i = 0; i < numMembers; i++) {
+    //            newMembers[i] = members[i];
+    //        }
+    //        members = newMembers;
+    //    }
+    //}
 }
