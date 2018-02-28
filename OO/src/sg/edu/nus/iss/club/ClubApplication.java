@@ -23,6 +23,10 @@ public class ClubApplication {
 
         System.out.println ("Current members:");
         club.showMembers ();
+        
+        club.addFacility("Sport Facility 1", "50m Swimming Pool");
+        System.out.println ("Current Facilities:");
+        club.showFacilities();
     }
 
 }

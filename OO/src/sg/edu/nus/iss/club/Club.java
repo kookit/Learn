@@ -1,16 +1,15 @@
 package sg.edu.nus.iss.club;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class Club {
 
-	//private static final int ARRAY_SIZE_INCREMENT = 10;
-
     private int    numMembers = 0;
-    //private int    count = 0;
-    //private Member members[] = new Member [ARRAY_SIZE_INCREMENT];
     private ArrayList<Member> members = new ArrayList<Member>();
+    private HashMap<String, Facility> facilities = new HashMap<String, Facility>(); 
     
     public Member getMember (int memberNum) {
         Iterator<Member> i = members.iterator();
@@ -50,15 +49,32 @@ public class Club {
         }
     }
 
-    //public void ensureArraySize () {
-    //    if (numMembers >= members.length) {
-    //        Member newMembers[];
-    //        int newSize = numMembers + ARRAY_SIZE_INCREMENT;
-    //        newMembers = new Member[newSize];
-    //        for (int i = 0; i < numMembers; i++) {
-    //            newMembers[i] = members[i];
-    //        }
-    //        members = newMembers;
-    //    }
-    //}
+    public Facility getFacility(String name) {
+    	return facilities.get(name);
+    }
+    
+    public List<Facility> getFacilities (){
+    	
+    	return new ArrayList<Facility>(facilities.values());
+    }
+    
+    public void addFacility (String name, String description) {
+        if (name == null) {
+            return;
+        }
+        Facility f = new Facility (name, description);
+        facilities.put (name, f);
+    }
+    
+    public void showFacilities () {
+    	  Iterator<Facility> i = getFacilities().iterator ();
+          while (i.hasNext ()) {
+              i.next().show ();
+          }
+    }
+    
+    public void removeFacility(String name) {
+    	facilities.remove (name);
+    }
+    
 }
